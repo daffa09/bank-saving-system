@@ -1,0 +1,35 @@
+# Git and Docker ignore
+.git
+.gitignore
+node_modules
+npm-debug.log
+
+# Environment files (keep .env.prod.example)
+.env
+.env.local
+.env.development
+.env.test
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# IDE and OS
+.vscode
+.idea
+.DS_Store
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# Build artifacts (frontend)
+dist/
+build/
+.vite/
+
+# Database data
+postgres_data/

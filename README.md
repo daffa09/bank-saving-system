@@ -147,6 +147,28 @@ npm run dev
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:5000
 
+---
+
+## 🐳 Docker Deployment
+
+### Quick Start with Docker
+
+**Backend:**
+```bash
+cd backend
+docker build -t bank-system-backend .
+docker run -p 5000:5000 -e DATABASE_URL=postgresql://user:pass@host:5432/db bank-system-backend
+```
+
+**Frontend:**
+```bash
+cd frontend
+docker build -t bank-system-frontend .
+docker run -p 3000:3000 bank-system-frontend
+```
+
+For detailed Docker setup, environment variables, and Docker Compose configuration, see [DOCKER.md](./DOCKER.md).
+
 ## 📚 Documentation
 
 Comprehensive documentation is available in the `docs/` folder:
