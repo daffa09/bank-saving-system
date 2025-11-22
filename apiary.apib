@@ -1,0 +1,531 @@
+FORMAT: 1A
+HOST: http://localhost:5000
+
+# Bank Saving System API
+
+Modern deposito account management system API with automatic interest calculation and transaction management.
+
+## Features
+
+- Customer management
+- Deposito type configuration with interest rates
+- Account creation and management
+- Deposit and withdrawal transactions
+- Automatic interest calculation on withdrawals
+
+## Base URL
+
+```
+http://localhost:5000
+```
+
+## Authentication
+
+Currently, the API does not require authentication. All endpoints are publicly accessible.
+
+---
+
+# Group Health Check
+
+## Health Check [/health]
+
+### Get API Health Status [GET]
+
+Check if the API server is running and healthy.
+
++ Response 200 (application/json)
+
+        {
+            "status": "OK",
+            "message": "Bank Saving System API is running"
+        }
+
+---
+
+# Group Customers
+
+Customer management endpoints for creating, reading, updating, and deleting customer records.
+
+## Customers Collection [/customers]
+
+### List All Customers [GET]
+
+Retrieve all customers in the system.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "name": "John Doe"
+            },
+            {
+                "id": 2,
+                "name": "Jane Smith"
+            }
+        ]
+
+### Create New Customer [POST]
+
+Create a new customer with the provided name.
+
++ Request (application/json)
+
+        {
+            "name": "John Doe"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "id": 1,
+            "name": "John Doe"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "message": "Missing required fields: name"
+        }
+
+## Customer [/customers/{id}]
+
++ Parameters
+    + id: `1` (number, required) - The customer ID
+
+### Get Customer [GET]
+
+Retrieve a specific customer by ID.
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "name": "John Doe"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Customer not found"
+        }
+
+### Update Customer [PUT]
+
+Update an existing customer's information.
+
++ Request (application/json)
+
+        {
+            "name": "John Doe Updated"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "name": "John Doe Updated"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "message": "Missing required fields: name"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Customer not found"
+        }
+
+### Delete Customer [DELETE]
+
+Delete a customer from the system.
+
++ Response 200 (application/json)
+
+        {
+            "message": "Customer deleted"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Customer not found"
+        }
+
+---
+
+# Group Deposito Types
+
+Deposito type management for configuring different deposito packages with varying interest rates.
+
+## Deposito Types Collection [/deposito-types]
+
+### List All Deposito Types [GET]
+
+Retrieve all deposito types configured in the system.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "name": "Bronze",
+                "yearly_return": "3.00"
+            },
+            {
+                "id": 2,
+                "name": "Silver",
+                "yearly_return": "5.00"
+            },
+            {
+                "id": 3,
+                "name": "Gold",
+                "yearly_return": "7.50"
+            }
+        ]
+
+### Create Deposito Type [POST]
+
+Create a new deposito type package with interest rate.
+
++ Request (application/json)
+
+        {
+            "name": "Platinum",
+            "yearly_return": 10.0
+        }
+
++ Response 201 (application/json)
+
+        {
+            "id": 4,
+            "name": "Platinum",
+            "yearly_return": "10.00"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "message": "Missing required fields: name, yearly_return"
+        }
+
+## Deposito Type [/deposito-types/{id}]
+
++ Parameters
+    + id: `1` (number, required) - The deposito type ID
+
+### Update Deposito Type [PUT]
+
+Update an existing deposito type's information.
+
++ Request (application/json)
+
+        {
+            "name": "Gold Premium",
+            "yearly_return": 8.0
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 3,
+            "name": "Gold Premium",
+            "yearly_return": "8.00"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Deposito type not found"
+        }
+
+### Delete Deposito Type [DELETE]
+
+Delete a deposito type from the system.
+
++ Response 200 (application/json)
+
+        {
+            "message": "Deposito type deleted"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Deposito type not found"
+        }
+
+---
+
+# Group Accounts
+
+Account management endpoints for creating and managing customer deposito accounts.
+
+## Accounts Collection [/accounts]
+
+### List All Accounts [GET]
+
+Retrieve all accounts with joined customer and deposito type information.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "packet": "Regular",
+                "customer_id": 1,
+                "customer_name": "John Doe",
+                "deposito_type_id": 1,
+                "deposito_name": "Bronze",
+                "yearly_return": "3.00",
+                "balance": "10000000.00",
+                "opened_at": "2024-01-01"
+            },
+            {
+                "id": 2,
+                "packet": "Premium",
+                "customer_id": 2,
+                "customer_name": "Jane Smith",
+                "deposito_type_id": 2,
+                "deposito_name": "Silver",
+                "yearly_return": "5.00",
+                "balance": "25000000.00",
+                "opened_at": "2024-02-15"
+            }
+        ]
+
+### Create Account [POST]
+
+Create a new deposito account for a customer.
+
++ Request (application/json)
+
+        {
+            "packet": "Premium",
+            "customer_id": 1,
+            "deposito_type_id": 2,
+            "balance": 5000000,
+            "opened_at": "2024-01-15"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "id": 1,
+            "packet": "Premium",
+            "customer_id": 1,
+            "deposito_type_id": 2,
+            "balance": "5000000.00",
+            "opened_at": "2024-01-15"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "message": "Missing required fields: packet, customer_id, deposito_type_id"
+        }
+
+## Account [/accounts/{id}]
+
++ Parameters
+    + id: `1` (number, required) - The account ID
+
+### Update Account [PUT]
+
+Update an existing account's information (balance cannot be updated via this endpoint).
+
++ Request (application/json)
+
+        {
+            "packet": "Premium Plus",
+            "customer_id": 1,
+            "deposito_type_id": 3,
+            "opened_at": "2024-01-15"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "packet": "Premium Plus",
+            "customer_id": 1,
+            "deposito_type_id": 3,
+            "balance": "5000000.00",
+            "opened_at": "2024-01-15"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Account not found"
+        }
+
+### Delete Account [DELETE]
+
+Delete an account from the system.
+
++ Response 200 (application/json)
+
+        {
+            "message": "Account deleted"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Account not found"
+        }
+
+---
+
+# Group Transactions
+
+Transaction endpoints for processing deposits and withdrawals with automatic interest calculation.
+
+## Deposit [/accounts/{id}/deposit]
+
++ Parameters
+    + id: `1` (number, required) - The account ID
+
+### Make Deposit [POST]
+
+Deposit money into an account. The balance is updated immediately.
+
++ Request (application/json)
+
+        {
+            "amount": 5000000,
+            "deposit_date": "2024-02-01"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "Deposit successful",
+            "balance": 15000000.00
+        }
+
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "message": "Missing required fields: amount"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Account not found"
+        }
+
+## Withdrawal [/accounts/{id}/withdraw]
+
++ Parameters
+    + id: `1` (number, required) - The account ID
+
+### Make Withdrawal [POST]
+
+Withdraw all balance plus accumulated interest from an account. The account balance becomes 0 after withdrawal.
+
+**Interest Calculation Formula:**
+```
+months = number of months between opened_at and withdrawal_date
+monthly_return = yearly_return / 12 / 100
+interest = balance × months × monthly_return
+ending_balance = balance + interest
+```
+
+**Example:**
+- Balance: Rp 10,000,000
+- Yearly Return: 6%
+- Duration: 12 months
+- Interest: Rp 600,000
+- Total Payout: Rp 10,600,000
+
++ Request (application/json)
+
+        {
+            "withdrawal_date": "2024-12-31"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "Withdrawal successful",
+            "startingBalance": 10000000.00,
+            "months": 12,
+            "monthlyReturn": 0.0025,
+            "interest": 300000.00,
+            "endingBalance": 10300000.00
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message": "Account balance is zero or negative"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "message": "Missing required fields: withdrawal_date"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Account not found"
+        }
+
+---
+
+# Data Structures
+
+## Customer (object)
+- id: `1` (number, required) - Unique customer identifier
+- name: `John Doe` (string, required) - Customer full name
+
+## DepositoType (object)
+- id: `1` (number, required) - Unique deposito type identifier
+- name: `Bronze` (string, required) - Package name
+- yearly_return: `3.00` (string, required) - Annual interest rate percentage
+
+## Account (object)
+- id: `1` (number, required) - Unique account identifier
+- packet: `Regular` (string, required) - Package variant name
+- customer_id: `1` (number, required) - Customer ID (foreign key)
+- customer_name: `John Doe` (string) - Customer name (from JOIN)
+- deposito_type_id: `1` (number, required) - Deposito type ID (foreign key)
+- deposito_name: `Bronze` (string) - Deposito type name (from JOIN)
+- yearly_return: `3.00` (string) - Yearly return rate (from JOIN)
+- balance: `10000000.00` (string, required) - Current account balance
+- opened_at: `2024-01-01` (string, required) - Account opening date (YYYY-MM-DD)
+
+## Transaction (object)
+- id: `1` (number, required) - Unique transaction identifier
+- account_id: `1` (number, required) - Account ID (foreign key)
+- type: `DEPOSIT` (enum[string], required) - Transaction type
+    - Members
+        - `DEPOSIT`
+        - `WITHDRAW`
+- amount: `5000000.00` (string, required) - Transaction amount
+- created_at: `2024-01-15T10:30:00Z` (string, required) - Transaction timestamp
+
+## WithdrawalResult (object)
+- success: `true` (boolean, required) - Operation success indicator
+- message: `Withdrawal successful` (string, required) - Status message
+- startingBalance: `10000000.00` (number, required) - Balance before withdrawal
+- months: `12` (number, required) - Number of months between opening and withdrawal
+- monthlyReturn: `0.0025` (number, required) - Monthly return rate (decimal)
+- interest: `300000.00` (number, required) - Total interest earned
+- endingBalance: `10300000.00` (number, required) - Total payout (balance + interest)
