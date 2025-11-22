@@ -49,10 +49,6 @@ Modern deposito account management system built with React, Node.js, Express, an
 ![Transactions](./docs/screenshots/transactions.png)
 *Process deposits and withdrawals with automatic interest calculation*
 
-### Withdrawal Result
-![Withdrawal Calculation](./docs/screenshots/withdrawal-result.png)
-*Detailed breakdown of withdrawal with interest earned*
-
 ## 🏗️ Architecture
 
 ```
@@ -323,9 +319,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Name](https://linkedin.com/in/yourprofile)
+**Daffa Fathan**
+- GitHub: [@daffa09](https://github.com/daffa09)
+- LinkedIn: [Daffa Fathan](https://linkedin.com/in/daffa-fathan)
 
 ## 🌟 Acknowledgments
 
@@ -335,8 +331,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Radix UI](https://www.radix-ui.com/) - Unstyled accessible components
 
 ---
-
-<div align="center">
-  <p>Made with ❤️ for modern banking solutions</p>
-  <p>⭐ Star this repo if you find it helpful!</p>
-</div>
