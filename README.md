@@ -2,14 +2,14 @@
 <!-- slug: bank-saving-system -->
 <!-- title: Bank Saving System -->
 <!-- description: Modern deposito account management system with interest calculation -->
-<!-- image: https://github.com/user-attachments/assets/a9c8ac88-f181-4729-b7f8-9df42a7c9c65 -->
+<!-- image: https://github.com/user-attachments/assets/5fda74e9-1582-4a75-86a1-45e09c404ff0 -->
 <!-- tags: react, nodejs, express, postgresql, tailwindcss, shadcn-ui, deposito, banking -->
 
 # 🏦 Bank Saving System
 
 Modern deposito account management system built with React, Node.js, Express, and PostgreSQL. Features automatic interest calculation, clean architecture, and beautiful UI with shadcn/ui.
 
-[![Dashboard](./docs/screenshots/dashboard.png)](https://github.com/user-attachments/assets/a9c8ac88-f181-4729-b7f8-9df42a7c9c65)
+<img width="1218" height="669" alt="image" src="https://github.com/user-attachments/assets/5fda74e9-1582-4a75-86a1-45e09c404ff0" />
 
 ## ✨ Features
 
